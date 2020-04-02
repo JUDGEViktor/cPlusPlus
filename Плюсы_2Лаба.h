@@ -20,114 +20,79 @@ struct coordinates {
 
 class Vector {
 
-private:
+public:
+
 	coordinates COORD;
 
-public:
-	coordinates GetCOORD();
+	void ChangeX(float X) {
+		COORD.x = X;
+	}
 
-	void AddVector(Vector NewWay);
+	void ChangeY(float Y) {
+		COORD.y = Y;
+	};
 
-	void ChangeX(float X);
-
-	void ChangeY(float Y);
+	Vector& operator += (Vector& NewWay) {
+		COORD.x += NewWay.COORD.x;
+		COORD.y += NewWay.COORD.y;
+		return *this;
+	}
 };
-Vector ObjVector;
-
-coordinates Vector::GetCOORD() {
-	return COORD;
-}
-
-void Vector::AddVector(Vector NewWay) {
-	COORD.x += NewWay.GetCOORD().x;
-	COORD.y += NewWay.GetCOORD().y;
-}
-
-void Vector::ChangeX(float X) {
-	COORD.x = X;
-}
-
-void Vector::ChangeY(float Y) {
-	COORD.y = Y;
-}
 
 class Mob {
 
 private:
-	coordinates COORD;
 
-	Vector Way;//вектор движения
+	collision Collisions(RECT rcClient) {
 
-	Vector GetVector();
-
-	collision Collisions(RECT rcClient);
+		if (COORD.x + HEIGHT + Way.COORD.x > rcClient.right)
+			return right_collision;
+		else if (COORD.x + Way.COORD.x < rcClient.left)
+			return left_collision;
+		else if (COORD.y - HEIGHT + Way.COORD.y < rcClient.top)
+			return bottom_collision;
+		else if (COORD.y + Way.COORD.y > rcClient.bottom)
+			return upper_collision;
+		else
+			return no_collision;
+	}
 
 public:
 
-	void AddVector(Vector NewWay);
+	Vector Way;//вектор движения
 
-	void Move(RECT rcClient, Vector &NewWay);
+	coordinates COORD;
+	
+	void Move(RECT rcClient, Vector &NewWay) {
 
-	coordinates GetCOORD();
+		switch (Collisions(rcClient)) {
 
-	void SetPosition(float X, float Y);
-};
-Mob ObjMob;
+		case right_collision:
+			Way.ChangeX(-Way.COORD.x);
+			
+			break;
 
-collision Mob::Collisions(RECT rcClient) {
+		case left_collision:
+			Way.ChangeX(-Way.COORD.x);
+			break;
 
-	if (COORD.x + HEIGHT + GetVector().GetCOORD().x > rcClient.right)
-		return right_collision;
-	else if (COORD.x + GetVector().GetCOORD().x < rcClient.left)
-		return left_collision;
-	else if (COORD.y - HEIGHT + GetVector().GetCOORD().y < rcClient.top)
-		return bottom_collision;
-	else if (COORD.y + GetVector().GetCOORD().y > rcClient.bottom)
-		return upper_collision;
-	else
-		return no_collision;
-}
+		case upper_collision:
+			Way.ChangeY(-Way.COORD.y);
+			break;
 
-void Mob::AddVector(Vector NewWay) {
-	Way.AddVector(NewWay);
-}
+		case bottom_collision:
+			Way.ChangeY(-Way.COORD.y);
+			break;
 
-void Mob::Move(RECT rcClient, Vector &NewWay) {//функция перемещения по вектору
-	switch (Collisions(rcClient)) {
-
-	case right_collision:
-		Way.ChangeX(-Way.GetCOORD().x);
-		break;
-
-	case left_collision:
-		Way.ChangeX(-Way.GetCOORD().x);
-		break;
-
-	case upper_collision:
-		Way.ChangeY(-Way.GetCOORD().y);
-		break;
-
-	case bottom_collision:
-		Way.ChangeY(-Way.GetCOORD().y);
-		break;
-
-	case no_collision:
-		COORD.x += Way.GetCOORD().x;
-		COORD.y += Way.GetCOORD().y;
-		break;
+		case no_collision:
+			COORD.x += Way.COORD.x;
+			COORD.y += Way.COORD.y;
+			break;
+		}
 	}
-}
 
-
-coordinates Mob::GetCOORD() {
-	return COORD;
-}
-
-void Mob::SetPosition(float X, float Y) {
-	COORD.x = X;
-	COORD.y = Y;
-}
-
-Vector Mob::GetVector() {
-	return Way;
-}
+	void SetPosition(float X, float Y) {
+		COORD.x = X;
+		COORD.y = Y;
+	}
+};
