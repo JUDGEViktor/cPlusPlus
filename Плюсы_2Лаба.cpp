@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <list>
 
+Vector ObjVector;
+Mob ObjMob;
 
 #define MAX_LOADSTRING 100
 
@@ -168,22 +170,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case VK_LEFT:
 			ObjVector.ChangeX(-1.0);
 			ObjVector.ChangeY(0.0);
-			ObjMob.AddVector(ObjVector);
+			ObjMob.Way += ObjVector;
 			break;
 		case VK_RIGHT:
 			ObjVector.ChangeX(1.0);
 			ObjVector.ChangeY(0.0);
-			ObjMob.AddVector(ObjVector);
+			ObjMob.Way += ObjVector;
 			break;
 		case VK_UP:
 			ObjVector.ChangeX(0.0);
 			ObjVector.ChangeY(-1.0);
-			ObjMob.AddVector(ObjVector);
+			ObjMob.Way += ObjVector;
 			break;
 		case VK_DOWN:
 			ObjVector.ChangeX(0.0);
 			ObjVector.ChangeY(1.0);
-			ObjMob.AddVector(ObjVector);
+			ObjMob.Way += ObjVector;
 			break;
 		}
 	}
