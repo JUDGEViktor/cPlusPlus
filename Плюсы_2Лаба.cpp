@@ -3,9 +3,6 @@
 
 #include "stdafx.h"
 #include "Плюсы_2Лаба.h"
-#include <math.h>
-#include <stdio.h>
-#include <list>
 
 Vector ObjVector;
 Mob ObjMob;
@@ -170,22 +167,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		case VK_LEFT:
 			ObjVector.ChangeX(-1.0);
 			ObjVector.ChangeY(0.0);
-			ObjMob.Way += ObjVector;
+			ObjMob.AddVector(ObjVector);
 			break;
 		case VK_RIGHT:
 			ObjVector.ChangeX(1.0);
 			ObjVector.ChangeY(0.0);
-			ObjMob.Way += ObjVector;
+			ObjMob.AddVector(ObjVector);
 			break;
 		case VK_UP:
 			ObjVector.ChangeX(0.0);
 			ObjVector.ChangeY(-1.0);
-			ObjMob.Way += ObjVector;
+			ObjMob.AddVector(ObjVector);
 			break;
 		case VK_DOWN:
 			ObjVector.ChangeX(0.0);
 			ObjVector.ChangeY(1.0);
-			ObjMob.Way += ObjVector;
+			ObjMob.AddVector(ObjVector);
 			break;
 		}
 	}
@@ -200,12 +197,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		ObjMob.Move(rcClient, ObjVector);
 
 		//Запоминаю последние NUMBER_TRACK положений
-		if (track.size() <= NUMBER_TRACK)
-			track.push_front(ObjMob.GetCOORD());
-		else {
-			track.pop_back();
-			track.push_front(ObjMob.GetCOORD());
-		}
+		ObjMob.RememberPos(track);
 
 
 		int R = 255, G = 0, B = 0;
