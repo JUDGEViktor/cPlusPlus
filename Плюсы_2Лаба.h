@@ -1,9 +1,13 @@
 #pragma once
 
 #include "resource.h"
+#include <math.h>
+#include <stdio.h>
+#include <list>
 using namespace std;
 
 #define HEIGHT 20
+#define NUMBER_TRACK 10
 
 enum collision {
 	upper_collision,
@@ -19,10 +23,17 @@ struct coordinates {
 };
 
 class Vector {
-
-public:
+private:
 
 	coordinates COORD;
+
+	Vector& operator += (Vector& NewWay) {
+		COORD.x += NewWay.COORD.x;
+		COORD.y += NewWay.COORD.y;
+		return *this;
+	}
+
+public:
 
 	void ChangeX(float X) {
 		COORD.x = X;
@@ -30,18 +41,18 @@ public:
 
 	void ChangeY(float Y) {
 		COORD.y = Y;
-	};
-
-	Vector& operator += (Vector& NewWay) {
-		COORD.x += NewWay.COORD.x;
-		COORD.y += NewWay.COORD.y;
-		return *this;
 	}
+
+	friend class Mob;
 };
 
 class Mob {
 
 private:
+	
+	Vector Way;//вектор движения
+
+	coordinates COORD;
 
 	collision Collisions(RECT rcClient) {
 
@@ -58,10 +69,10 @@ private:
 	}
 
 public:
-
-	Vector Way;//вектор движения
-
-	coordinates COORD;
+	
+	void AddVector(Vector NewWay) {
+		Way += NewWay;
+	}
 	
 	void Move(RECT rcClient, Vector &NewWay) {
 
@@ -94,5 +105,15 @@ public:
 	void SetPosition(float X, float Y) {
 		COORD.x = X;
 		COORD.y = Y;
+	}
+	
+	//Запоминаю последние NUMBER_TRACK положений
+	void RememberPos(list <coordinates> &track) {
+		if (track.size() <= NUMBER_TRACK)
+			track.push_front(COORD);
+		else {
+			track.pop_back();
+			track.push_front(COORD);
+		}
 	}
 };
