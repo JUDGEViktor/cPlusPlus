@@ -56,7 +56,7 @@ private:
 
 	coordinates COORD;
 
-	collisions collisions_result(RECT rcClient) {
+	collisions collision_result(RECT rcClient) {
 
 		if (COORD.x + HEIGHT + Way.GetCOORD().x > rcClient.right)
 			return right_collision;
@@ -78,7 +78,7 @@ public:
 	
 	void Move(RECT rcClient, Vector &NewWay) {
 
-		switch (collisions_result(rcClient)) {
+		switch (collision_result(rcClient)) {
 
 		case right_collision:
 			Way.ChangeX(-Way.GetCOORD().x);
