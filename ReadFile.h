@@ -37,6 +37,7 @@ private:
 	void  GetFrame(string& line, vector <float>& result);
 
 
+	Element* MyFind(OBJECT_NAME object);
 
 	Element* GetPrevMenu();
 
