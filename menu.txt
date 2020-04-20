@@ -49,6 +49,8 @@ menu.begin:
 			frame((810,250);(1000,410)
 		button.end
 
+                frame((800,50);(1350,500))
+
 	window.end
 menu.end
 	
