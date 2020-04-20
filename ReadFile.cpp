@@ -85,19 +85,20 @@ void  ParseFile::GetFrame(string& line, vector <float>& result) {
 }
 
 
+Element* ParseFile::MyFind(OBJECT_NAME object) {
 
-Element* ParseFile::GetPrevMenu() {
-	for (vector <Element>::iterator it = elements.end() - 1; it != elements.end(); it--) {
-		if ((*it).GetMyObject() == OBJ_MENU)
+	for (vector <Element>::iterator it = elements.end() - 1; it != elements.begin(); it--) {
+		if (it->GetMyObject() == object)
 			return &(*it);
 	}
 }
 
+Element* ParseFile::GetPrevMenu() {
+	return(MyFind(OBJ_MENU));
+}
+
 Element* ParseFile::GetPrevWindow() {
-	for (vector <Element>::iterator it = elements.end() - 1; it != elements.begin(); it--) {
-		if ((*it).GetMyObject() == OBJ_WINDOW)
-			return &(*it);
-	}
+	return(MyFind(OBJ_WINDOW));
 }
 
 Element* ParseFile::GetPrev() {
@@ -157,18 +158,18 @@ Menu ParseFile::InitMenu() {
 
 	for (vector <Element>::iterator it = elements.begin(); it != elements.end(); it++) {
 
-		switch ((*it).GetMyObject()) {
+		switch (it->GetMyObject()) {
 
 		case OBJ_MENU:
-			menu = Menu((*it).Getframe(), (*it).GetColor(), (*it).GetName());
+			menu = Menu(it->Getframe(), it->GetColor(), it->GetName());
 			break;
 
 		case OBJ_WINDOW:
-			menu.AddWindow((*it).Getframe(), (*it).GetColor(), (*it).GetName());
+			menu.AddWindow(it->Getframe(), it->GetColor(), it->GetName());
 			break;
 
 		case OBJ_BUTTON:
-			menu.AddButton((*it).Getframe(), (*it).GetColor(), (*it).GetName());
+			menu.AddButton(it->Getframe(), it->GetColor(), it->GetName());
 			break;
 
 		}
