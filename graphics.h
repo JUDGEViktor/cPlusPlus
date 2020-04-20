@@ -31,14 +31,14 @@ void DISPLAY() {
 
 	for (vector <Window>::iterator it_windows = menu.GetWindows().begin(); it_windows != menu.GetWindows().end(); it_windows++) {
 
-		glColor3ub((*it_windows).GetColor().R, (*it_windows).GetColor().G, (*it_windows).GetColor().B);
-		glRectf( ((*it_windows).GetFrame().BEGINING_POINT.x - menu_centre_X) / menu_length, (menu_centre_Y - (*it_windows).GetFrame().BEGINING_POINT.y) / menu_height,
-			((*it_windows).GetFrame().OPPOSIT_POINT.x - menu_centre_X) / menu_length, (menu_centre_Y - (*it_windows).GetFrame().OPPOSIT_POINT.y) / menu_height );
+		glColor3ub(it_windows->GetColor().R, it_windows->GetColor().G, it_windows->GetColor().B);
+		glRectf( (it_windows->GetFrame().BEGINING_POINT.x - menu_centre_X) / menu_length, (menu_centre_Y - it_windows->GetFrame().BEGINING_POINT.y) / menu_height,
+			(it_windows->GetFrame().OPPOSIT_POINT.x - menu_centre_X) / menu_length, (menu_centre_Y - it_windows->GetFrame().OPPOSIT_POINT.y) / menu_height );
 
-		for (vector <Button>::iterator it_buttons = (*it_windows).GetButtons().begin(); it_buttons != (*it_windows).GetButtons().end(); it_buttons++) {
-			glColor3ub((*it_buttons).GetColor().R, (*it_buttons).GetColor().G, (*it_buttons).GetColor().B);
-			glRectf( ((*it_buttons).GetFrame().BEGINING_POINT.x - menu_centre_X ) / menu_length, (menu_centre_Y - (*it_buttons).GetFrame().BEGINING_POINT.y) / menu_height,
-				((*it_buttons).GetFrame().OPPOSIT_POINT.x - menu_centre_X) / menu_length, (menu_centre_Y - (*it_buttons).GetFrame().OPPOSIT_POINT.y ) / menu_height );
+		for (vector <Button>::iterator it_buttons = it_windows->GetButtons().begin(); it_buttons != it_windows->GetButtons().end(); it_buttons++) {
+			glColor3ub(it_buttons->GetColor().R, it_buttons->GetColor().G, it_buttons->GetColor().B);
+			glRectf( (it_buttons->GetFrame().BEGINING_POINT.x - menu_centre_X ) / menu_length, (menu_centre_Y - it_buttons->GetFrame().BEGINING_POINT.y) / menu_height,
+				(it_buttons->GetFrame().OPPOSIT_POINT.x - menu_centre_X) / menu_length, (menu_centre_Y - it_buttons->GetFrame().OPPOSIT_POINT.y ) / menu_height );
 		}
 	}
 
