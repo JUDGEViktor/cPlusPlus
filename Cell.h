@@ -7,19 +7,29 @@ enum bonuses {
 	FRUIT
 };
 
+enum status {
+	FREE, 
+	NOT_FREE
+};
+
 //Класс клетки, хранит информацию о "проходимости" клетки, и какой бонус на ней лежит
 
 class Cell {
 
 private:
 
-	bool free;
+	status STATUS;
 
 	//Лежит ли на этой клетке какой-то бонус и какой бонус
 	bonuses BONUS;
 
 
 public:
+	
+	Cell(status setStatus, bonuses setBonus) {
+		STATUS = setStatus;
+		BONUS = setBonus;
+	}
 
 };
 
