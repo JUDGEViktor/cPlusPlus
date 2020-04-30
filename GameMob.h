@@ -1,6 +1,12 @@
 #pragma once
 #include "Header.h"
 
+enum status {
+	NON,
+	FRIGHTENED,
+	//....//
+};
+
 class GameMob {
 
 private:
