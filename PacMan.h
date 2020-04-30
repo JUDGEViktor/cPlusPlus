@@ -2,6 +2,12 @@
 #include "Header.h"
 #include "GameMob.h"
 
+enum directions {
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST
+};
 
 class PacMan : public GameMob {
 
