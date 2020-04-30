@@ -11,7 +11,7 @@ class Level {
 
 private:
 
-	Cell Map[20][20];
+	Cvector<vector<Cell>> Map;
 
 
 public:
