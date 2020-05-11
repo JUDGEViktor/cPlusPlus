@@ -1,5 +1,4 @@
 #pragma once
-#include <GL\glut.h>
 #include<windows.h>
 #include<iostream>
 #include<vector>
@@ -10,11 +9,17 @@
 #include<queue>
 #include<stack>
 #include<memory>
+#include<set>
+#include<cmath>
+#include <GL\glut.h>
+
 using namespace std;
 
-struct coordinates {
-	int x;
-	int y;
-};
+#define SQUARE_SIZE 4
+
+
+typedef pair<float, float> coordinates;
+
+
 
 
