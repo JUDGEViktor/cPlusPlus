@@ -2,9 +2,8 @@
 #include "Header.h"
 
 enum status {
-	NON,
-	FRIGHTENED,
-	//....//
+	REGULAR,
+	FRIGHTENED
 };
 
 class GameMob {
@@ -17,7 +16,19 @@ private:
 
 public:
 
-	GameMob() {}
+	GameMob(coordinates setCoordinates) {
+		STATUS = REGULAR;
+		COORD.first = setCoordinates.first;
+		COORD.second = setCoordinates.second;
+	}
+
+	coordinates& GetCOORD() {
+		return COORD;
+	}
+
+	status GetStatus() {
+		return STATUS;
+	}
 
 
 };
