@@ -4,7 +4,7 @@
 #include "PacMan.h"
 #include "Ghost.h"
 
-//Основной класс
+//ГЋГ±Г­Г®ГўГ­Г®Г© ГЄГ«Г Г±Г±
 
 constexpr auto NUM_GHOSTS = 1;
 constexpr auto NUM_OF_REGULAR_POINTS = 240;
@@ -28,27 +28,6 @@ private:
 	int levelStage;
 
 	int countOfRegularPoints, countOfEnergizers;
-
-
-	void StartNewLevel(ifstream& fileWithLevel) {
-
-		aliveGhosts.clear();
-		while (!deadGhosts.empty()) {
-			deadGhosts.pop();
-		}
-		/*for (auto i : Maze) {
-			i.clear();
-		}*/
-		Maze.clear();
-		countOfEatenGhosts = 0;
-		countOfRegularPoints = 0;
-		countOfEnergizers = 0;
-		levelStage++;
-
-		InitLevel(fileWithLevel);
-
-
-	}
 
 
 public:
@@ -91,8 +70,6 @@ public:
 		for (i = 0; i < NUM_GHOSTS; i++) {
 			aliveGhosts.emplace_back();
 		}
-
-		fileWithLevel.seekg(0, ios::beg);
 
 	}
 
@@ -137,7 +114,7 @@ public:
 			break;
 		}
 
-		//Если все съедено, начать новый уровень
+		//Г…Г±Г«ГЁ ГўГ±ГҐ Г±ГєГҐГ¤ГҐГ­Г®, Г­Г Г·Г ГІГј Г­Г®ГўГ»Г© ГіГ°Г®ГўГҐГ­Гј
 		if (countOfRegularPoints == NUM_OF_REGULAR_POINTS && countOfEnergizers == NUM_OF_ENERGIZERS) {
 			StartNewLevel(fileWithLevel);
 		}
