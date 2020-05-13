@@ -25,23 +25,6 @@ private:
 		return (sqrt(pow(src.second - dst.second, 2) + pow(src.first - dst.first, 2)));
 	}
 
-	vector<coordinates> GetFreeCells(vector<vector<Cell>> Maze) {
-		vector<coordinates> freeCells;
-		//Check north
-		if (Maze[GetCOORD().first - 1][GetCOORD().second].IsFreee())
-			freeCells.emplace_back(make_pair(GetCOORD().first - 1, GetCOORD().second));
-		//Check south
-		if(Maze[GetCOORD().first + 1][GetCOORD().second].IsFreee())
-			freeCells.emplace_back(make_pair(GetCOORD().first + 1, GetCOORD().second));
-		//Check west
-		if(Maze[GetCOORD().first][GetCOORD().second - 1].IsFreee())
-			freeCells.emplace_back(make_pair(GetCOORD().first, GetCOORD().second - 1));
-		//Check east
-		if(Maze[GetCOORD().first][GetCOORD().second + 1].IsFreee())
-			freeCells.emplace_back(make_pair(GetCOORD().first, GetCOORD().second + 1));
-		return freeCells;
-	}
-
 public:
 
 	Ghost() : GameMob(make_pair(11.0, 15.0), STOP) { STATUS = REGULAR; }
@@ -88,25 +71,6 @@ public:
 
 	}
 
-	void GoHome() {
-
-	}
-
-	action_with_ghost ActionWithGhost(PacMan pacman) {
-
-		if (GetCOORD() == pacman.GetCOORD()) {
-
-			if (STATUS == FRIGHTENED) {
-				return BE_EATTEN;
-			}
-
-			if (STATUS == REGULAR) {
-				return EAT;
-			}
-
-		}
-		return NOTHING;
-	}
 
 	void ChangeStatus(status setStatus) {
 		STATUS = setStatus;
