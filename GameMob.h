@@ -60,10 +60,6 @@ public:
 		direction = setDirection;
 	}
 
-	void ChangeDirection(directions newDirection) {
-		direction = newDirection;
-	}
-
 	void Move(vector<vector<Cell>> maze) {
 
 		switch (TestTunnel()) {
