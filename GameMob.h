@@ -13,23 +13,23 @@ class GameMob {
 
 private:
 
-	coordinates COORD;
+	coordinates coord;
 
-	directions DIRECTION;
+	directions direction;
 
-	bool TestStep(vector<vector<Cell>> Maze) {
-		switch (DIRECTION) {
+	bool TestStep(vector<vector<Cell>> maze) {
+		switch (direction) {
 		case NORTH:
-			return Maze[COORD.first - 1][COORD.second].IsFreee();
+			return maze[coord.first - 1][coord.second].IsFreee();
 			break;
 		case SOUTH:
-			return Maze[COORD.first + 1][COORD.second].IsFreee();
+			return maze[coord.first + 1][coord.second].IsFreee();
 			break;
 		case WEST:
-			return Maze[COORD.first][COORD.second - 1].IsFreee();
+			return maze[coord.first][coord.second - 1].IsFreee();
 			break;
 		case EAST:
-			return Maze[COORD.first][COORD.second + 1].IsFreee();
+			return maze[coord.first][coord.second + 1].IsFreee();
 			break;
 		}
 
@@ -37,13 +37,13 @@ private:
 	}
 
 	directions TestTunnel() {
-		switch (DIRECTION) {
+		switch (direction) {
 		case EAST:
-			if (make_pair(COORD.first, COORD.second + 1) == make_pair(14.0f, 27.0f))
+			if (make_pair(coord.first, coord.second + 1) == make_pair(14.0f, 27.0f))
 				return EAST;
 			break;
 		case WEST:
-			if (make_pair(COORD.first, COORD.second - 1) == make_pair(14.0f, 0.0f))
+			if (make_pair(coord.first, coord.second - 1) == make_pair(14.0f, 0.0f))
 				return WEST;
 			break;
 		default:
@@ -55,63 +55,63 @@ private:
 public:
 
 	GameMob(coordinates setCoordinates, directions setDirection) {
-		COORD.first = setCoordinates.first;
-		COORD.second = setCoordinates.second;
-		DIRECTION = setDirection;
+		coord.first = setCoordinates.first;
+		coord.second = setCoordinates.second;
+		direction = setDirection;
 	}
 
 	void ChangeDirection(directions newDirection) {
-		DIRECTION = newDirection;
+		direction = newDirection;
 	}
 
-	void Move(vector<vector<Cell>> Maze) {
+	void Move(vector<vector<Cell>> maze) {
 
 		switch (TestTunnel()) {
 		case WEST:
-			COORD.second = 27.0f;
+			coord.second = 27.0f;
 			return;
 		case EAST:
-			COORD.second = 0.0f;
+			coord.second = 0.0f;
 			return;
 		default:
 			break;
 		}
 
 
-		switch (DIRECTION) {
+		switch (direction) {
 		case NORTH:
-			if (TestStep(Maze))
-				COORD.first -= 1;
+			if (TestStep(maze))
+				coord.first -= 1;
 			else
-				DIRECTION = STOP;
+				direction = STOP;
 			break;
 		case SOUTH:
-			if (TestStep(Maze))
-				COORD.first += 1;
+			if (TestStep(maze))
+				coord.first += 1;
 			else
-				DIRECTION = STOP;
+				direction = STOP;
 			break;
 		case WEST:
-			if (TestStep(Maze))
-				COORD.second -= 1;
+			if (TestStep(maze))
+				coord.second -= 1;
 			else
-				DIRECTION = STOP;
+				direction = STOP;
 			break;
 		case EAST:
-			if (TestStep(Maze))
-				COORD.second += 1;
+			if (TestStep(maze))
+				coord.second += 1;
 			else
-				DIRECTION = STOP;
+				direction = STOP;
 			break;
 		}
 	}
 
-	coordinates& GetCOORD() {
-		return COORD;
+	coordinates GetCoord() {
+		return coord;
 	}
 
-	directions& GetDIRECTION() {
-		return DIRECTION;
+	directions GetDirection() {
+		return direction;
 	}
 
 
