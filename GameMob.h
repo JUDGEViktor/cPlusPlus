@@ -113,6 +113,14 @@ public:
 	directions GetDirection() {
 		return direction;
 	}
+	
+	void ChangeCoord(coordinates setCoordinates) {
+		coord = setCoordinates;
+	}
+
+	void ChangeDirection(directions setDirection) {
+		direction = setDirection;
+	}
 
 
 };
