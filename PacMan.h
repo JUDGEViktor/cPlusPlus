@@ -1,7 +1,7 @@
 #pragma once
 
 #include "resource.h"
-#include "Header.h"
+#include "Libraries.h"
 #include "GameMob.h"
 #include "Cell.h"
 
@@ -18,8 +18,8 @@ public:
 
 	//Need when pacman dies
 	void RespawnPacMan() {
-		GetCOORD() = make_pair(29.0, 12.0);
-		GetDIRECTION() = STOP;
+		ChangeCoord(make_pair(29.0, 12.0));
+		ChangeDirection(STOP);
 	}
 	
 };
