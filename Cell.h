@@ -1,5 +1,5 @@
 #pragma once
-#include "Header.h"
+#include "Libraries.h"
 
 enum bonuses {
 	REGULAR_POINT,    //Обычная точка
@@ -14,34 +14,33 @@ class Cell {
 
 private:
 
-	bool FREE;
+	bool free;
 
 	//Лежит ли на этой клетке какой-то бонус и какой бонус
-	bonuses BONUS;
+	bonuses bonus;
 
-	coordinates COORD;
+	coordinates coord;
 
 
 public:
 
 	Cell(bool setStatus, bonuses setBonus, coordinates setCoordinates) {
-		FREE = setStatus;
-		BONUS = setBonus;
+		free = setStatus;
+		bonus = setBonus;
 
-		COORD.first = setCoordinates.first;
-		COORD.second = setCoordinates.second;
+		coord = setCoordinates;
 	}
 
 	bool IsFreee() {
-		return FREE;
+		return free;
 	}
 
-	bonuses& WhatBonus() {
-		return BONUS;
+	bonuses WhatBonus() {
+		return bonus;
 	}
 
-	coordinates GetCOORD() {
-		return COORD;
+	coordinates GetCoord() {
+		return coord;
 	}
 
 };
