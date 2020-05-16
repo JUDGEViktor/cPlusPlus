@@ -35,9 +35,9 @@ private:
 
 	void FindWayToDestination(const Table& maze, const coordinates& destination);
 
-	action_with_pacman FindPacMan(const Table& maze, PacMan& pacman);
+	action_with_pacman FindPacMan(const Table& maze, const PacMan& pacman);
 
-	action_with_pacman FindHome(const Table& maze, PacMan& pacman);
+	action_with_pacman FindHome(const Table& maze, const PacMan& pacman);
 
 	action_with_pacman ActionWithPacman(const PacMan& pacman);
 
@@ -54,7 +54,7 @@ public:
 	//For change ghost mood from frightened to relax and etc...
 	void ChangeFunction();
 
-	action_with_pacman Move(const Table& maze, PacMan pacman);
+	action_with_pacman Move(const Table& maze, const PacMan& pacman);
 
 	void SetGhostDeath() {
 		inBox = true;
