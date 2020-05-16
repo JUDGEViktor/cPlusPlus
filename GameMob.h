@@ -1,5 +1,8 @@
 #pragma once
 #include "Libraries.h"
+#include "Cell.h"
+
+using Table = vector<vector<Cell>>;
 
 enum directions {
 	NORTH,
@@ -17,104 +20,29 @@ private:
 
 	directions direction;
 
-	bool TestStep(vector<vector<Cell>> maze) {
-		switch (direction) {
-		case NORTH:
-			return maze[coord.first - 1][coord.second].IsFreee();
-			break;
-		case SOUTH:
-			return maze[coord.first + 1][coord.second].IsFreee();
-			break;
-		case WEST:
-			return maze[coord.first][coord.second - 1].IsFreee();
-			break;
-		case EAST:
-			return maze[coord.first][coord.second + 1].IsFreee();
-			break;
-		}
+	const bool TestStep(const Table& maze);
 
-
-	}
-
-	directions TestTunnel() {
-		switch (direction) {
-		case EAST:
-			if (make_pair(coord.first, coord.second + 1) == make_pair(14.0f, 27.0f))
-				return EAST;
-			break;
-		case WEST:
-			if (make_pair(coord.first, coord.second - 1) == make_pair(14.0f, 0.0f))
-				return WEST;
-			break;
-		default:
-			return STOP;
-		}
-
-	}
+	directions TestTunnel();
 
 public:
 
-	GameMob(coordinates setCoordinates, directions setDirection) {
-		coord.first = setCoordinates.first;
-		coord.second = setCoordinates.second;
-		direction = setDirection;
-	}
+	GameMob(const coordinates& setCoordinates, const directions& setDirection);
 
-	void Move(vector<vector<Cell>> maze) {
+	void Move(const Table& maze);
 
-		switch (TestTunnel()) {
-		case WEST:
-			coord.second = 27.0f;
-			return;
-		case EAST:
-			coord.second = 0.0f;
-			return;
-		default:
-			break;
-		}
-
-
-		switch (direction) {
-		case NORTH:
-			if (TestStep(maze))
-				coord.first -= 1;
-			else
-				direction = STOP;
-			break;
-		case SOUTH:
-			if (TestStep(maze))
-				coord.first += 1;
-			else
-				direction = STOP;
-			break;
-		case WEST:
-			if (TestStep(maze))
-				coord.second -= 1;
-			else
-				direction = STOP;
-			break;
-		case EAST:
-			if (TestStep(maze))
-				coord.second += 1;
-			else
-				direction = STOP;
-			break;
-		}
-	}
-
-	coordinates GetCoord() {
+	coordinates GetCoord() const{
 		return coord;
 	}
 
-	directions GetDirection() {
+	directions GetDirection() const{
 		return direction;
 	}
-	
-	void ChangeCoord(coordinates setCoordinates) {
+
+	void ChangeCoord(const coordinates& setCoordinates) {
 		coord = setCoordinates;
 	}
 
-	void ChangeDirection(directions setDirection) {
+	void ChangeDirection(const directions& setDirection) {
 		direction = setDirection;
 	}
 

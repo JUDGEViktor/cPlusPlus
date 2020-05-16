@@ -1,93 +1,101 @@
 #pragma once
-#include "Header.h"
+#include "Libraries.h"
 #include "Cell.h"
 #include "PacMan.h"
 #include "Ghost.h"
 
-//РћСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ
+//Основной класс
 
 constexpr auto NUM_GHOSTS = 4;
 constexpr auto NUM_OF_REGULAR_POINTS = 240;
 constexpr auto NUM_OF_ENERGIZERS = 4;
+constexpr auto PACMAN_LIFES = 4;
+
+enum GAME_STATUS {
+	BEGIN,
+	PLAY,
+	DEATH,
+	NEXT_LEVEL,
+	END
+};
 
 
 class Level {
 
 private:
 
-	int scores;
+	int scores, pacmanLifes;
 
-	vector<vector<Cell>> curMaze;
-	vector<vector<Cell>> backUpMaze;
+	Table curMaze;
+	Table backUpMaze;
 
 	vector <Ghost> aliveGhosts;
-
-	queue <Ghost> deadGhosts;
+	vector <Ghost> deadGhosts;
 
 	PacMan pacman;
 
-	int countOfEatenGhosts;
+	int doubleGhostScores;  //increase, when pacman eat ghost
 
 	int levelStage;
 
-	int countOfEatenRegularPoints, countOfEatenEnergizers, countOfEatenFruits;
+	int countOfEatenRegularPoints, countOfEatenEnergizers, 
+		countOfEatenFruits;
 
-	int gameThic;
+	void TimerFunction();
+
+	void DeleteAllGhosts();
+
+	void PlaceInGhosts();
+
+	void StartNewLevel();
+
+	//When pacman dies
+	void SetPacmanDeath();
+
+	void StartNewGame();
+
+	void GhostsActions();
+
+	void PacManAction();
+
+	void ChangeGhostsStatus(status_name setStatus);
 
 
 public:
 
-	Level() { 
-		countOfEatenGhosts = 0; 
-		levelStage = 1;
-		countOfEatenRegularPoints = 0;
-		countOfEatenEnergizers = 0;
-		countOfEatenFruits = 0;
-		scores = 0;
-		gameThic = 1;
+	Level();
+
+	void InitLevel(ifstream& fileWithLevel);
+
+	void Play();
+
+	void ChangePacmanDirection(const directions& setDirection) {
+		pacman.ChangeDirection(setDirection);
 	}
 
-	void InitLevel(ifstream& fileWithLevel) {
+	/*----------------For Graphics-------------------*/
+	const PacMan& GetPacman() {
+		return pacman;
+	}
 
-		string line;
-		int i, j;
+	const Table& GetMaze() {
+		return curMaze;
+	}
 
-		fileWithLevel.seekg(0, ios::beg);
+	const vector<Ghost>& GetAliveGhosts() {
+		return aliveGhosts;
+	}
 
+	const vector<Ghost> GetDeadGhosts() {
+		return deadGhosts;
+	}
 
-		for (i = 0; getline(fileWithLevel, line); i++) {
-			curMaze.push_back(vector<Cell>());
-			backUpMaze.push_back(vector<Cell>());
-			for (j = 0; j < line.size(); j++) {
-				switch (line[j]) {
-				case int('#') :
-					curMaze[i].emplace_back(false, NONE, make_pair(i, j));
-					backUpMaze[i].emplace_back(false, NONE, make_pair(i, j));
-					break;
+	const int GetScores() {
+		return scores;
+	}
 
-				case int('.') :
-					curMaze[i].emplace_back(true, REGULAR_POINT, make_pair(i, j));
-					backUpMaze[i].emplace_back(true, REGULAR_POINT, make_pair(i, j));
-					break;
-
-				case int('$') :
-					curMaze[i].emplace_back(true, ENERGIZER, make_pair(i, j));
-					backUpMaze[i].emplace_back(true, ENERGIZER, make_pair(i, j));
-					break;
-
-				default:
-					curMaze[i].emplace_back(true, NONE, make_pair(i, j));
-					backUpMaze[i].emplace_back(true, NONE, make_pair(i, j));
-					break;
-
-				}
-			}
-		}
-
-		for (i = 0; i < NUM_GHOSTS; i++) {
-			aliveGhosts.emplace_back();
-		}
-
+	const int GetPacmanLifes() {
+		return pacmanLifes;
 	}
 
 };

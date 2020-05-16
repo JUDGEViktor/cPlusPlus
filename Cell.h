@@ -2,13 +2,13 @@
 #include "Libraries.h"
 
 enum bonuses {
-	REGULAR_POINT,    //РћР±С‹С‡РЅР°СЏ С‚РѕС‡РєР°
+	REGULAR_POINT,    //Обычная точка
 	ENERGIZER,
 	FRUIT,
 	NONE
 };
 
-//РљР»Р°СЃСЃ РєР»РµС‚РєРё, С…СЂР°РЅРёС‚ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ "РїСЂРѕС…РѕРґРёРјРѕСЃС‚Рё" РєР»РµС‚РєРё, Рё РєР°РєРѕР№ Р±РѕРЅСѓСЃ РЅР° РЅРµР№ Р»РµР¶РёС‚
+//Класс клетки, хранит информацию о "проходимости" клетки, и какой бонус на ней лежит
 
 class Cell {
 
@@ -16,7 +16,7 @@ private:
 
 	bool free;
 
-	//Р›РµР¶РёС‚ Р»Рё РЅР° СЌС‚РѕР№ РєР»РµС‚РєРµ РєР°РєРѕР№-С‚Рѕ Р±РѕРЅСѓСЃ Рё РєР°РєРѕР№ Р±РѕРЅСѓСЃ
+	//Лежит ли на этой клетке какой-то бонус и какой бонус
 	bonuses bonus;
 
 	coordinates coord;
@@ -24,22 +24,21 @@ private:
 
 public:
 
-	Cell(bool setStatus, bonuses setBonus, coordinates setCoordinates) {
-		free = setStatus;
-		bonus = setBonus;
+	Cell(bool setStatus, const bonuses& setBonus, const coordinates& setCoordinates);
 
-		coord = setCoordinates;
-	}
-
-	bool IsFreee() {
+	bool IsFreee() const {
 		return free;
 	}
 
-	bonuses WhatBonus() {
+	bonuses WhatBonus() const {
 		return bonus;
 	}
 
-	coordinates GetCoord() {
+	void ChangBonus(bonuses setBonus) {
+		bonus = setBonus;
+	}
+
+	coordinates GetCoord() const {
 		return coord;
 	}
 

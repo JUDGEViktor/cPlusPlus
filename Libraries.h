@@ -17,11 +17,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 using namespace std;
-
-#define SQUARE_SIZE 20
-
-
-typedef pair<float, float> coordinates;
+using coordinates = pair<float, float>;
 
 
 

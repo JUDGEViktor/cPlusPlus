@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "resource.h"
 #include "Libraries.h"
@@ -10,16 +10,15 @@ class PacMan : public GameMob {
 
 private:
 
-	int pacmanLifes;
+	bonuses EatScores(const Table& maze);
 
 public:
 
-	PacMan() : GameMob(make_pair(29.0, 12.0), STOP) { pacmanLifes = 4; }
+	PacMan() : GameMob(make_pair(29.0, 12.0), STOP) {}
 
 	//Need when pacman dies
-	void RespawnPacMan() {
-		ChangeCoord(make_pair(29.0, 12.0));
-		ChangeDirection(STOP);
-	}
+	void RespawnPacMan();
+
+	bonuses Action(const Table& maze);
 	
 };
