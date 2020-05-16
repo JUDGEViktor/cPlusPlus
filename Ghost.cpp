@@ -39,12 +39,12 @@ void Ghost::FindWayToDestination(const Table& maze, const coordinates& destinati
 
 }
 
-action_with_pacman Ghost::FindPacMan(const Table& maze, PacMan& pacman) {
+action_with_pacman Ghost::FindPacMan(const Table& maze, const PacMan& pacman) {
 	FindWayToDestination(maze, pacman.GetCoord());
 	return ActionWithPacman(pacman);
 }
 
-action_with_pacman Ghost::FindHome(const Table& maze, PacMan& pacman) {
+action_with_pacman Ghost::FindHome(const Table& maze, const PacMan& pacman) {
 	FindWayToDestination(maze, make_pair(1.0f, 27.0f));
 	return ActionWithPacman(pacman);
 }
@@ -108,7 +108,7 @@ void Ghost::ChangeFunction() {
 	return;
 }
 
-action_with_pacman Ghost::Move(const Table& maze, PacMan pacman) {
+action_with_pacman Ghost::Move(const Table& maze, const PacMan& pacman) {
 
 	if (status == FRIGHTENED || status == RELAX) {
 		return(FindHome(maze, pacman));
