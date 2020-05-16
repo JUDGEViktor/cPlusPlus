@@ -4,7 +4,6 @@
 #include "PacMan.h"
 #include "Ghost.h"
 
-//Основной класс
 
 constexpr auto NUM_GHOSTS = 4;
 constexpr auto NUM_OF_REGULAR_POINTS = 240;
