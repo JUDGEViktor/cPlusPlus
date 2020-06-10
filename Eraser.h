@@ -9,7 +9,12 @@ public:
 
 	Eraser() : BrushAbstract() {}
 
-	virtual void draw(coordinates pointCoord, vector<vector<pixel>> canvas);
+	//Paint always with white
+	virtual void action(const coordinates& pointCoord) {
+	}
+
+	virtual void draw(HDC hdc) {
+	}
 
 
 };

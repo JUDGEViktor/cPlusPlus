@@ -9,6 +9,10 @@ public:
 
 	Pencil() : BrushAbstract() {}
 
-	virtual void draw(coordinates pointCoord, vector<vector<pixel>> canvas);
+	virtual void action(const coordinates& pointCoord) {
+	}
+
+	virtual void draw(HDC hdc) {
+	}
 
 };

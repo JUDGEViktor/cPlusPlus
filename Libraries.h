@@ -8,25 +8,22 @@
 #include<sstream>
 #include<queue>
 #include<stack>
-
+#include<list>
 
 using namespace std;
 
+struct coordinates {
+	int x;
+	int y;
+};
 
-typedef struct coordinates {
-	float x;
-	float y;
-}coordinates;
-
-
-typedef struct colorRGB {
+struct colorRGB {
 	int r;
 	int g;
 	int b;
-}colorRGB;
+};
 
-
-typedef struct pixel {
-	coordinates pixelCoord;
-	colorRGB pixelColor;
-}pixel;
+struct FRAME {
+	coordinates BEGINING_POINT;
+	coordinates OPPOSIT_POINT;
+};
